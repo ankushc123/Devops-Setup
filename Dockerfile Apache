@@ -10,3 +10,11 @@ ENV APACHE_LOG_DIR /var/log/apache2
 EXPOSE 80
 COPY index.html /var/www/html
 CMD ["/usr/sbin/apache2", "-D", "FOREGROUND"]
+
+
+
+ docker build .
+ or
+ docker build -f /path/to/a/Dockerfile 
+ or
+ docker build -t shykes/myapp .
