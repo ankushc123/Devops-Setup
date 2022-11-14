@@ -1,1 +1,71 @@
+yum install python
+yum install python-pip
+
+pip install ansible
+ansible --version
+
+======================================================
+on Control node and Managed host
+======================================================
+useradd ansadmin
+passwd ansadmin
+
+#So our normal user can also gain root/sudo permission
+visudo
+or
+echo "ansadmin ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers
+
+sed -ie 's/PasswordAuthentication no/PasswordAuthentication yes/' /etc/ssh/sshd_config
+sudo service sshd reload
+=======================================================
+sudo su - ansadmin
+ssh-keygen
+cd .ssh
+ssh-copy-id ansadmin@<target-server>
+
+Docker req becoz our Ansible will create image and push it to rgistry
+yum install docker
+service docker start
+service docker start 
+# add user to docker group 
+usermod -aG docker ansadmin
+
+
+/etc/ansible and create an inventory file called "hosts and add ips on nodes
+
+ansible all -m ping
+
+
+
+XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+On RHEL 8.x server
+XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+
+yum install python3 -y
+alternatives --set python /usr/bin/python3 ==>To use python command instade of python3 everytime
+python --version
+yum -y install python3-pip
+
+---------------------------------------
+(on Control node and Managed host)
+---------------------------------------
+useradd ansadmin
+passwd ansadmin
+
+echo "ansadmin ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers
+
+ sed -ie 's/PasswordAuthentication no/PasswordAuthentication yes/' /etc/ssh/sshd_config
+ sudo service sshd reload
+ 
+--------------------------------------
+
+su - ansadmin
+pip3 install ansible --user
+ansible --version
+ssh-keygen
+ssh-copy-id ansadmin@<target-server>
+
+/etc/ansible/hosts
+
+ansible all -m ping
 
