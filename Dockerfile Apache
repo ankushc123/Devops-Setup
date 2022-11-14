@@ -18,3 +18,24 @@ CMD ["/usr/sbin/apache2", "-D", "FOREGROUND"]
  docker build -f /path/to/a/Dockerfile 
  or
  docker build -t shykes/myapp .
+ 
+ 
+ 
+ XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+ 
+CMD - The main purpose of a CMD is to provide defaults for an executing container.
+
+Note: There can only be one CMD instruction in a Dockerfile. If you list more than one CMD then only the last CMD will take effect.
+Note - Do not confuse RUN with CMD. RUN actually runs a command and commits the result; CMD does not execute anything at build time, but specifies the intended command for the image.
+
+ENTRYPOINT - An ENTRYPOINT allows you to configure a container that will run as an executable.
+ENTRYPOINT will override all elements specified using CMD
+Both CMD and ENTRYPOINT instructions define what command gets executed when running a container. There are few rules that describe their co-operation.
+Dockerfile should specify at least one of CMD or ENTRYPOINT commands.
+ENTRYPOINT should be defined when using the container as an executable.
+CMD should be used as a way of defining default arguments for an ENTRYPOINT command or for executing an ad-hoc command in a container.
+CMD will be overridden when running the container with alternative arguments.
+
+
+ARG - The ARG instruction defines a variable that users can pass at build-time to the builder with the docker build command using the --build-arg = flag.
+SHELL - The SHELL instruction allows the default shell used for the shell form of commands to be overridden.
