@@ -1,0 +1,46 @@
+https://tomcat.apache.org/download-80.cgi
+
+cd /opt
+wget http://mirrors.fibergrid.in/apache/tomcat/tomcat-8/v8.5.35/bin/apache-tomcat-8.5.35.tar.gz
+tar -xvzf /opt/apache-tomcat-<version>.tar.gz
+
+chmod +x /opt/apache-tomcat-<version>/bin/startup.sh 
+chmod +x /opt/apache-tomcat-<version>/bin/shutdown.sh
+
+ln -s /opt/apache-tomcat-<version>/bin/startup.sh /usr/local/bin/tomcatup
+ln -s /opt/apache-tomcat-<version>/bin/shutdown.sh /usr/local/bin/tomcatdown
+tomcatup
+
+=============================
+http://<Public_IP>:8080
+=============================
+
+As jenkins also run on port 8080 so change it to 8090
+cd /opt/apache-tomcat-<version>/conf
+# update port number in the "connecter port" field in server.xml
+# restart tomcat after configuration update
+tomcatdown
+tomcatup
+
+==============================
+http://<Public_IP>:8090
+==============================
+
+**tomcat application doesnt allow to login from browser.
+
+find / -name context.xml
+comment () Value ClassName field on files which are under webapp directory
+# Restart tomcat services
+tomcatdown  
+tomcatup
+
+**Update users information in the tomcat-users.xml file goto tomcat home directory and Add below users to conf/tomcat-users.xml file
+ <role rolename="manager-gui"/>
+ <role rolename="manager-script"/>
+ <role rolename="manager-jmx"/>
+ <role rolename="manager-status"/>
+ <user username="admin" password="admin" roles="manager-gui, manager-script, manager-jmx, manager-status"/>
+ <user username="deployer" password="deployer" roles="manager-script"/>
+ <user username="tomcat" password="s3cret" roles="manager-gui"/>
+ 
+ **Restart serivce and try to login to tomcat application from the browser. This time it should be Successful
