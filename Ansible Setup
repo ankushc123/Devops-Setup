@@ -2,6 +2,7 @@ yum install python
 yum install python-pip
 
 pip install ansible
+Successfully installed ansible-4.10.0
 ansible --version
 
 ======================================================
@@ -20,7 +21,7 @@ sudo service sshd reload
 =======================================================
 sudo su - ansadmin
 ssh-keygen
-cd .ssh
+cd /home/ansadmin/.ssh
 ssh-copy-id ansadmin@<target-server>
 
 Docker req becoz our Ansible will create image and push it to rgistry
